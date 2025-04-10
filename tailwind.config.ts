@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -52,15 +53,18 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
+				// Custom Mind Bloom theme colors
+				mindbloom: {
+					purple: {
+						light: '#D6BCFA',
+						DEFAULT: '#9b87f5',
+						dark: '#7E69AB'
+					},
+					pink: {
+						light: '#FFDEE2',
+						DEFAULT: '#D946EF',
+						dark: '#BE185D'
+					}
 				}
 			},
 			borderRadius: {
@@ -84,11 +88,25 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'float': {
+					'0%, 100%': {
+						transform: 'translateY(0)'
+					},
+					'50%': {
+						transform: 'translateY(-10px)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 5s ease-in-out infinite'
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'purple-pink-gradient': 'linear-gradient(135deg, #9b87f5 0%, #D946EF 100%)',
+				'pink-purple-gradient': 'linear-gradient(135deg, #FFDEE2 0%, #D6BCFA 100%)'
 			}
 		}
 	},
