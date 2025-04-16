@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import TherapistCard from "@/components/TherapistCard";
 import Button from "@/components/Button";
 
 const Appointment = () => {
@@ -16,40 +15,7 @@ const Appointment = () => {
   const [selectedTherapist, setSelectedTherapist] = useState<string>("");
   const [showConfirmation, setShowConfirmation] = useState(false);
 
-  const therapists = [
-    {
-      id: "1",
-      name: "Dr. Emma Wilson",
-      title: "Clinical Psychologist",
-      specialization: ["Anxiety", "Depression", "Trauma"],
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80",
-      availability: "Mon, Wed, Fri",
-    },
-    {
-      id: "2",
-      name: "Michael Chen",
-      title: "Therapist",
-      specialization: ["Anxiety", "Stress Management", "Work-Life Balance"],
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-      availability: "Tues, Thurs",
-    },
-    {
-      id: "3",
-      name: "Dr. Sarah Johnson",
-      title: "Psychiatrist",
-      specialization: ["Anxiety Disorders", "Mood Disorders", "ADHD"],
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=461&q=80",
-      availability: "Mon, Tues, Thurs",
-    },
-    {
-      id: "4",
-      name: "David Rodriguez",
-      title: "Wellness Coach",
-      specialization: ["Mindfulness", "Stress Reduction", "Life Transitions"],
-      image: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-      availability: "Wed, Fri",
-    },
-  ];
+ 
 
   const availableDates = [
     "2025-04-15",
@@ -85,32 +51,6 @@ const Appointment = () => {
           description="Schedule a session with one of our qualified mental health professionals. Whether you need ongoing therapy or a one-time consultation, we're here to support you."
         />
         
-        {/* Therapists Section */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold mb-8">Choose a Therapist</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {therapists.map((therapist) => (
-                <div key={therapist.id} onClick={() => setSelectedTherapist(therapist.id)} className="cursor-pointer">
-                  <TherapistCard
-                    name={therapist.name}
-                    title={therapist.title}
-                    specialization={therapist.specialization}
-                    image={therapist.image}
-                    availability={therapist.availability}
-                  />
-                  {selectedTherapist === therapist.id && (
-                    <div className="mt-2 text-center">
-                      <span className="inline-block px-3 py-1 bg-mindbloom-purple text-white text-sm rounded-full">
-                        Selected
-                      </span>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
         
         {/* Booking Form */}
         <section className="py-16 bg-gray-50">
@@ -123,7 +63,7 @@ const Appointment = () => {
                   <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-green-800">
                     <h3 className="text-lg font-medium mb-2">Appointment Confirmed!</h3>
                     <p>
-                      Your appointment has been scheduled with {therapists.find(t => t.id === selectedTherapist)?.name} on {selectedDate} at {selectedTime}.
+                      Your appointment has been scheduled on {selectedDate} at {selectedTime}.
                     </p>
                   </div>
                   
@@ -182,18 +122,7 @@ const Appointment = () => {
                     </select>
                   </div>
                   
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Selected Therapist
-                    </label>
-                    <div className="p-3 border border-gray-300 rounded-md bg-gray-50">
-                      {selectedTherapist ? (
-                        <span>{therapists.find(t => t.id === selectedTherapist)?.name}</span>
-                      ) : (
-                        <span className="text-gray-500">Please select a therapist above</span>
-                      )}
-                    </div>
-                  </div>
+                 
                   
                   <div className="pt-4">
                     <Button
