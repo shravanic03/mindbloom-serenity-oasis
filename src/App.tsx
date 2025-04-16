@@ -1,23 +1,27 @@
+import { Toaster } from "@/components/ui/toaster"
+import { Toaster as Sonner } from "@/components/ui/sonner"
+import { TooltipProvider } from "@/components/ui/tooltip"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { isAuthenticated } from "./utils/auth-utils"
+import ProtectedRoute from "./utils/protected-route"
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import Home from "./pages/Home";
-import AboutUs from "./pages/AboutUs";
-import Appointment from "./pages/Appointment";
-import Chatbot from "./pages/Chatbot";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Feedback from "./pages/Feedback";
-import BookRecommendations from "./pages/BookRecommendations";
-import MovieRecommendations from "./pages/MovieRecommendations";
-import SongRecommendations from "./pages/SongRecommendations";
-import NotFound from "./pages/NotFound";
+// Pages
+import Index from "./pages/Index"
+import Home from "./pages/Home"
+import AboutUs from "./pages/AboutUs"
+import Appointment from "./pages/Appointment"
+import AppointmentHistory from "./pages/AppointmentHistory" // Add this import
+import Chatbot from "./pages/Chatbot"
+import Login from "./pages/Login"
+import Signup from "./pages/Signup"
+import Feedback from "./pages/Feedback"
+import BookRecommendations from "./pages/BookRecommendations"
+import MovieRecommendations from "./pages/MovieRecommendations"
+import SongRecommendations from "./pages/SongRecommendations"
+import NotFound from "./pages/NotFound"
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -26,23 +30,84 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/home" element={<Home />} />
+          {/* Public routes */}
+          <Route path="/" element={isAuthenticated() ? <Navigate to="/home" replace /> : <Index />} />
           <Route path="/about" element={<AboutUs />} />
-          <Route path="/appointment" element={<Appointment />} />
-          <Route path="/chatbot" element={<Chatbot />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/feedback" element={<Feedback />} />
-          <Route path="/books" element={<BookRecommendations />} />
-          <Route path="/movies" element={<MovieRecommendations />} />
-          <Route path="/songs" element={<SongRecommendations />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+
+          {/* Protected routes - require authentication */}
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/appointment"
+            element={
+              <ProtectedRoute>
+                <Appointment />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/appointment-history"
+            element={
+              <ProtectedRoute>
+                <AppointmentHistory />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/chatbot"
+            element={
+              <ProtectedRoute>
+                <Chatbot />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/feedback"
+            element={
+              <ProtectedRoute>
+                <Feedback />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/books"
+            element={
+              <ProtectedRoute>
+                <BookRecommendations />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/movies"
+            element={
+              <ProtectedRoute>
+                <MovieRecommendations />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/songs"
+            element={
+              <ProtectedRoute>
+                <SongRecommendations />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Catch-all route for 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
-);
+)
 
-export default App;
+export default App

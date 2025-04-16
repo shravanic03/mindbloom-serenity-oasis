@@ -1,7 +1,6 @@
-
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from 'lucide-react';
 import Button from "@/components/Button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -12,22 +11,38 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
     
-    // Simulate login process
-    setTimeout(() => {
-      // This is just for demo purposes
-      if (email === "demo@example.com" && password === "password") {
-        window.location.href = "/home";
-      } else {
-        setError("Invalid email or password. Try demo@example.com / password");
+    try {
+      const response = await fetch("http://localhost:5030/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed");
       }
+
+      // Save token to localStorage
+      localStorage.setItem("authToken", data.token);
+      
+      // Redirect to home page
+      navigate("/home");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred during login");
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -70,7 +85,7 @@ const Login = () => {
                     <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                       Password
                     </label>
-                    <Link to="#" className="text-xs text-mindbloom-purple hover:underline">
+                    <Link to="/forgot-password" className="text-xs text-mindbloom-purple hover:underline">
                       Forgot password?
                     </Link>
                   </div>
@@ -100,7 +115,14 @@ const Login = () => {
                   type="submit"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Logging in..." : "Log In"}
+                  {isLoading ? (
+                    <span className="flex items-center justify-center">
+                      <span className="animate-spin mr-2 h-4 w-4 border-b-2 border-white rounded-full"></span>
+                      Logging in...
+                    </span>
+                  ) : (
+                    "Log In"
+                  )}
                 </Button>
               </form>
               
@@ -116,11 +138,11 @@ const Login = () => {
               <div className="mt-8 pt-6 border-t border-gray-100 text-center">
                 <p className="text-xs text-gray-500">
                   By logging in, you agree to our{" "}
-                  <Link to="#" className="text-mindbloom-purple hover:underline">
+                  <Link to="/terms" className="text-mindbloom-purple hover:underline">
                     Terms of Service
                   </Link>{" "}
                   and{" "}
-                  <Link to="#" className="text-mindbloom-purple hover:underline">
+                  <Link to="/privacy" className="text-mindbloom-purple hover:underline">
                     Privacy Policy
                   </Link>
                 </p>
