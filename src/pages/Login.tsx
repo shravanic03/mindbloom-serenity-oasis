@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from "lucide-react";
 import Button from "@/components/Button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -17,7 +17,7 @@ const Login = () => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
-    
+
     try {
       const response = await fetch("http://localhost:5030/api/users/login", {
         method: "POST",
@@ -35,11 +35,13 @@ const Login = () => {
 
       // Save token to localStorage
       localStorage.setItem("authToken", data.token);
-      
+
       // Redirect to home page
       navigate("/home");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred during login");
+      setError(
+        err instanceof Error ? err.message : "An error occurred during login"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -48,25 +50,32 @@ const Login = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      
+
       <main className="flex-grow pt-20">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-md mx-auto">
             <div className="bg-white rounded-xl shadow-md p-8">
               <div className="text-center mb-8">
-                <h1 className="text-2xl font-bold gradient-text">Welcome Back</h1>
-                <p className="text-gray-600 mt-2">Log in to continue your journey</p>
+                <h1 className="text-2xl font-bold gradient-text">
+                  Welcome Back
+                </h1>
+                <p className="text-gray-600 mt-2">
+                  Log in to continue your journey
+                </p>
               </div>
-              
+
               {error && (
                 <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-6">
                   {error}
                 </div>
               )}
-              
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Email
                   </label>
                   <input
@@ -74,18 +83,24 @@ const Login = () => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-md focus:ring-mindbloom-purple focus:border-mindbloom-purple"
+                    className="w-full p-3 border border-gray-300 rounded-md focus:ring-PMHS-purple focus:border-PMHS-purple"
                     placeholder="Enter your email"
                     required
                   />
                 </div>
-                
+
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="password"
+                      className="block text-sm font-medium text-gray-700"
+                    >
                       Password
                     </label>
-                    <Link to="/forgot-password" className="text-xs text-mindbloom-purple hover:underline">
+                    <Link
+                      to="/forgot-password"
+                      className="text-xs text-PMHS-purple hover:underline"
+                    >
                       Forgot password?
                     </Link>
                   </div>
@@ -95,7 +110,7 @@ const Login = () => {
                       type={showPassword ? "text" : "password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full p-3 border border-gray-300 rounded-md focus:ring-mindbloom-purple focus:border-mindbloom-purple"
+                      className="w-full p-3 border border-gray-300 rounded-md focus:ring-PMHS-purple focus:border-PMHS-purple"
                       placeholder="Enter your password"
                       required
                     />
@@ -108,10 +123,10 @@ const Login = () => {
                     </button>
                   </div>
                 </div>
-                
-                <Button 
-                  variant="gradient" 
-                  className="w-full" 
+
+                <Button
+                  variant="gradient"
+                  className="w-full"
                   type="submit"
                   disabled={isLoading}
                 >
@@ -125,24 +140,33 @@ const Login = () => {
                   )}
                 </Button>
               </form>
-              
+
               <div className="mt-6 text-center">
                 <p className="text-sm text-gray-600">
                   Don't have an account?{" "}
-                  <Link to="/signup" className="text-mindbloom-purple hover:underline">
+                  <Link
+                    to="/signup"
+                    className="text-PMHS-purple hover:underline"
+                  >
                     Sign up
                   </Link>
                 </p>
               </div>
-              
+
               <div className="mt-8 pt-6 border-t border-gray-100 text-center">
                 <p className="text-xs text-gray-500">
                   By logging in, you agree to our{" "}
-                  <Link to="/terms" className="text-mindbloom-purple hover:underline">
+                  <Link
+                    to="/terms"
+                    className="text-PMHS-purple hover:underline"
+                  >
                     Terms of Service
                   </Link>{" "}
                   and{" "}
-                  <Link to="/privacy" className="text-mindbloom-purple hover:underline">
+                  <Link
+                    to="/privacy"
+                    className="text-PMHS-purple hover:underline"
+                  >
                     Privacy Policy
                   </Link>
                 </p>
@@ -151,7 +175,7 @@ const Login = () => {
           </div>
         </div>
       </main>
-      
+
       <Footer />
     </div>
   );

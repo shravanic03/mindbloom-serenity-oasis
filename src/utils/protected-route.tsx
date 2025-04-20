@@ -7,7 +7,10 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  if (!isAuthenticated()) {
+  // Check if admin is logged in - admins can access student routes
+  const isAdmin = localStorage.getItem("adminAuth") === "true"
+
+  if (!isAuthenticated() && !isAdmin) {
     // Redirect to login if not authenticated
     return <Navigate to="/login" replace />
   }
