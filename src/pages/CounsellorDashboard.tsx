@@ -55,7 +55,7 @@ const CounsellorDashboard = () => {
     try {
       // Fetch all appointments
       const response = await fetch(
-        "http://localhost:5030/api/appointment/getTodaysAppointments"
+        "https://phms-backend.onrender.com/api/appointment/getTodaysAppointments"
       );
 
       if (!response.ok) {
@@ -83,7 +83,7 @@ const CounsellorDashboard = () => {
       setError(null);
       try {
         const response = await fetchWithAuth(
-          `http://localhost:5030/api/appointment/cancel/${appointmentId}`,
+          `https://phms-backend.onrender.com/api/appointment/cancel/${appointmentId}`,
           {
             method: "PUT",
             headers: {
@@ -129,7 +129,7 @@ const CounsellorDashboard = () => {
 
       try {
         const response = await fetchWithAuth(
-          `http://localhost:5030/api/appointment/cancel/${appointmentId}`,
+          `https://phms-backend.onrender.com/api/appointment/cancel/${appointmentId}`,
           {
             method: "PUT",
             headers: {

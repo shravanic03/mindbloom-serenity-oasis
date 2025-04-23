@@ -43,19 +43,22 @@ const Signup = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5030/api/users/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          roll_number: rollNumber,
-          mobile,
-        }),
-      });
+      const response = await fetch(
+        "https://phms-backend.onrender.com/api/users/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+            roll_number: rollNumber,
+            mobile,
+          }),
+        }
+      );
 
       // Get the response data
       const data = await response.json();

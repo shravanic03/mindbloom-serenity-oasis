@@ -41,7 +41,7 @@ const AppointmentHistory = () => {
 
     try {
       const response = await fetchWithAuth(
-        "http://localhost:5030/api/appointment"
+        "https://phms-backend.onrender.com/api/appointment"
       );
 
       if (!response.ok) {
@@ -62,13 +62,12 @@ const AppointmentHistory = () => {
   };
 
   const handleCancelAppointment = async (id) => {
-
     setLoading(true);
     setError(null);
 
     try {
       const response = await fetchWithAuth(
-        `http://localhost:5030/api/appointment/cancel/${id}`,
+        `https://phms-backend.onrender.com/api/appointment/cancel/${id}`,
         {
           method: "PUT",
         }
@@ -77,8 +76,6 @@ const AppointmentHistory = () => {
       if (!response.ok) {
         throw new Error("Failed to cancel appointment");
       }
-
-      
 
       fetchAppointments();
     } catch (err) {
@@ -208,7 +205,11 @@ const AppointmentHistory = () => {
               >
                 Reschedule
               </Button>
-              <Button size="sm" className="flex-1 text-xs" onClick={() => handleCancelAppointment(appointment.id)}>
+              <Button
+                size="sm"
+                className="flex-1 text-xs"
+                onClick={() => handleCancelAppointment(appointment.id)}
+              >
                 Cancel
               </Button>
             </div>

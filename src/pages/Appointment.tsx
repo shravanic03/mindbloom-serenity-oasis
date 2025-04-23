@@ -51,7 +51,7 @@ const Appointment = () => {
       // Using fetchWithAuth even though this might be a public endpoint
       // This ensures consistent error handling and token refresh if needed
       const response = await fetchWithAuth(
-        "http://localhost:5030/api/slot/get"
+        "https://phms-backend.onrender.com/api/slot/get"
       );
 
       if (!response.ok) {
@@ -123,7 +123,7 @@ const Appointment = () => {
       // First book the slot
       const [startTime, endTime] = selectedTime.split(" - ");
       const slotResponse = await fetchWithAuth(
-        "http://localhost:5030/api/slot/book",
+        "https://phms-backend.onrender.com/api/slot/book",
         {
           method: "POST",
           body: JSON.stringify({
@@ -142,7 +142,7 @@ const Appointment = () => {
 
       // Then book the appointment
       const appointmentResponse = await fetchWithAuth(
-        "http://localhost:5030/api/appointment/book",
+        "https://phms-backend.onrender.com/api/appointment/book",
         {
           method: "POST",
           body: JSON.stringify({
@@ -183,7 +183,7 @@ const Appointment = () => {
 
     try {
       const response = await fetchWithAuth(
-        `http://localhost:5030/api/appointment/cancel/${currentAppointment.id}`,
+        `https://phms-backend.onrender.com/api/appointment/cancel/${currentAppointment.id}`,
         {
           method: "PUT",
         }
@@ -238,7 +238,7 @@ const Appointment = () => {
 
       // First book the new slot
       const slotResponse = await fetchWithAuth(
-        "http://localhost:5030/api/slot/book",
+        "https://phms-backend.onrender.com/api/slot/book",
         {
           method: "POST",
           body: JSON.stringify({
@@ -257,7 +257,7 @@ const Appointment = () => {
 
       // Then reschedule the appointment
       const response = await fetchWithAuth(
-        `http://localhost:5030/api/appointment/reschedule/${currentAppointment.id}`,
+        `https://phms-backend.onrender.com/api/appointment/reschedule/${currentAppointment.id}`,
         {
           method: "PUT",
           body: JSON.stringify({
